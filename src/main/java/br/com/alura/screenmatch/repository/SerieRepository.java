@@ -13,9 +13,10 @@ public interface SerieRepository extends JpaRepository <Serie, Long> {
     List<Serie> findByAtoresContainingIgnoreCaseAndAvaliacaoGreaterThanEqual(String nomeAtor, Double avaliacao);
     List<Serie> findTop5ByOrderByAvaliacaoDesc();
     List<Serie> findByGenero(Categoria categoria);
-    List<Serie> findByTotalTemporadaLessThanEqualAndAvaliacaoGreaterThanEqual(int totalTemporadas, double avaliacao);
+    List<Serie> findByTotalTemporadasLessThanEqualAndAvaliacaoGreaterThanEqual(int totalTemporadas, double avaliacao);
 
-    @Query("SELECT * FROM series WHERE series.total_temporadas <= 5 AND series.avaliacao >= 7.5")
+//    @Query(value = "SELECT * FROM series WHERE series.total_temporadas <= 5 AND series.avaliacao >= 7.5", nativeQuery = true)
+//    List<Serie> seriesPorTemporadaEAvaliacao(int totalTemporadas, double avaliacao);
+    @Query(value = "SELECT s FROM Serie s WHERE s.totalTemporadas <= :totalTemporadas AND s.avaliacao >= :avaliacao")
     List<Serie> seriesPorTemporadaEAvaliacao(int totalTemporadas, double avaliacao);
-
 }
